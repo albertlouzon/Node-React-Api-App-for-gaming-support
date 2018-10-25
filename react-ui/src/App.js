@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-
+import axios from 'axios'
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       message: null,
-      fetching: true
+      fetching: true,
+      apiTest:{},
     };
   }
 
@@ -30,25 +31,33 @@ class App extends Component {
           fetching: false
         });
       })
+
+      this.handleClick()
+  }
+
+  handleClick () {
+    axios.get("/api")
+      .then(response=>{
+        console.log('riot api response: ',response)
+        this.setState({
+          apiTest:response.data
+        })
+      }
+        )
   }
 
   render() {
     return (
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          {'This is '}
-          <a href="https://github.com/mars/heroku-cra-node">
-            {'create-react-app with a custom Node/Express server'}
-          </a><br/>
-        </p>
+        <pre className="App-intro">
+          {this.state.fetching
+            ? 'Fetching message from API'
+            : this.state.apiTest.name}
+        </pre>
         <p className="App-intro">
           {this.state.fetching
             ? 'Fetching message from API'
-            : this.state.message}
+            : this.state.apiTest.summonerLevel}
         </p>
       </div>
     );
