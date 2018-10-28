@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 5000;
 function initialize() {
   // Setting URL and headers for request
   var options = {
-      url: 'https://euw1.api.riotgames.com/lol/summoner/v3/summoners/by-name/renekton?api_key=RGAPI-ecfb3041-acae-4515-9cc3-48a62a72c6b8',
+      url: 'https://euw1.api.riotgames.com/lol/summoner/v3/summoners/by-name/renekton?api_key=RGAPI-f26b300a-79ed-4917-ae2f-6960f6774828',
       headers: {
           'User-Agent': 'request'
       }
