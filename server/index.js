@@ -42,48 +42,9 @@ function main() {
       console.log(err);
   })
   
-}
-main()
-
-// Multi-process to utilize all CPU cores.
-if (cluster.isMaster) {
-  console.error(`Node cluster master ${process.pid} is running`);
-
-  // Fork workers.
-  for (let i = 0; i < numCPUs; i++) {
-    cluster.fork();
-  }
-
-  cluster.on('exit', (worker, code, signal) => {
-    console.error(`Node cluster worker ${worker.process.pid} exited: code ${code}, signal ${signal}`);
-  });
-
-} else {
-  const app = express();
-  app.use(cors())
-  app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-  });
-  // Priority serve any static files.
-  app.use(express.static(path.resolve(__dirname, '../react-ui/build')));
-  // Answer API requests.
-  app.get('/api', function (req, res) {
-    res.header("Access-Control-Allow-Origin", "*");
-res.header("Access-Control-Allow-Headers", "X-Requested-With");
-    res.set('Content-Type', 'application/json');
-    
- 
-      res.send(userDetails
-      
-      )
-  }
-  
-  );
 
 
-
+  const app = express()
 
 
   app.listen(PORT, function () {
