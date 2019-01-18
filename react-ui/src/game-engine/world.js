@@ -26,6 +26,8 @@ export default class World extends Component {
     clearInterval(this.interval);
   }
   componentWillUpdate(nextProps, nextState) {
+    const deltaTop = initialWorldHeight+block0Size.height
+    const finalBlock0Location = -block0Size.position + deltaTop
     if (
       nextState.bottom ===
       this.state.bottom
@@ -33,7 +35,7 @@ export default class World extends Component {
 
     } else {
       console.log(nextState.bottom)
-     if(nextState.bottom=== (-block0Size.position+initialWorldHeight+block0Size.height)){
+     if(nextState.bottom=== finalBlock0Location ){
        alert('c dar')
      }
     }
