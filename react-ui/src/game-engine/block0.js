@@ -4,7 +4,8 @@ export default class Block0 extends Component {
     constructor(props) {
       super(props)
       this.height = this.props.height
-      this.bottom = this.props.bottom,
+      this.yPosition = this.props.yPosition,
+      this.xPosition = this.props.xPosition,
          this.width=this.props.width,
 
       this.state = {
@@ -18,10 +19,10 @@ export default class Block0 extends Component {
         ball: {
             height:this.props.height,
             width:this.props.width,
-            bottom:this.props.bottom,
-            backgroundColor:'blue',
+            bottom:this.props.yPosition,
+            backgroundColor:'green',
             position:"fixed",
-            left:400
+            left:this.props.xPosition
         }
   
       };
