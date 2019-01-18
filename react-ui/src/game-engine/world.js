@@ -3,7 +3,8 @@ import {playerSize} from './player'
 import Player from './player'
 import Block0 from './block0'
 const speed = 1;
-
+const initialWorldHeight = 400
+const block0Size = {height:50,width:50,position:2500}
 export default class World extends Component {
   constructor(props) {
     super(props);
@@ -11,7 +12,7 @@ export default class World extends Component {
     this.state = {
       isGameStarted: false,
       bottom: 50,
-      worldHeight: 400,
+      worldHeight: initialWorldHeight,
     };
   }
 
@@ -31,7 +32,10 @@ export default class World extends Component {
     ) {
 
     } else {
-     
+      console.log(nextState.bottom)
+     if(nextState.bottom=== (-block0Size.position+initialWorldHeight+block0Size.height)){
+       alert('c dar')
+     }
     }
   }
   render() {
@@ -50,7 +54,7 @@ export default class World extends Component {
     
         <Player bottom={this.state.bottom} />
 
-        <Block0  height={50}    width={50}    top={400} />
+        <Block0  height={block0Size.height}    width={block0Size.width}    bottom={block0Size.position + this.state.bottom} />
 
           {" "}
         </div>
