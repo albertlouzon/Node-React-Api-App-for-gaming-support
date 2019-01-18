@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-
+import {playerSize} from './player'
+import Player from './player'
 const speed = 1;
-const playerSize = { height: 40, width: 40 };
 
 export default class World extends Component {
   constructor(props) {
@@ -24,19 +24,6 @@ export default class World extends Component {
     clearInterval(this.interval);
   }
 
-  componentWillUpdate(nextProps, nextState) {
-    if (
-      nextState.bottom ===
-      this.state.bottom
-    ) {
-
-
-    } else {
-      console.log('ya du mouvement')
-      this.ball.scrollIntoView();
-    }
-  }
-
   render() {
     const styles = {
       bigBox: {
@@ -47,30 +34,13 @@ export default class World extends Component {
       },
 
 
-      ball: {
-        left: 400,
-        height: playerSize.height,
-        width: playerSize.width,
-        borderRadius: "50%",
-        backgroundColor: "yellow",
-        position: "relative",
-        bottom: this.state.bottom
-      },
-
     };
     return (
       <div style={styles.bigBox}>
         <div style={styles.block} />
-
-        <div
-          style={styles.ball}
-          ref={el => {
-            this.ball = el;
-          }}
-        >
+        <Player bottom={this.state.bottom}   />
           {" "}
         </div>
-      </div>
     );
   }
 }
