@@ -47,8 +47,11 @@ export default class World extends Component {
     };
     return (
       <div style={styles.bigBox}>
-      <Block0  height={50}    width={50}    bottom={0} />
-        <Player bottom={this.state.bottom}   />
+    
+        <Player bottom={this.state.bottom} />
+
+        <Block0  height={50}    width={50}    top={400} />
+
           {" "}
         </div>
     );
