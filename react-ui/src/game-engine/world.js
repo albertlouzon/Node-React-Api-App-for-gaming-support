@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import {playerSize} from './player'
 import Player from './player'
+import Block0 from './block0'
 const speed = 1;
 
 export default class World extends Component {
@@ -23,7 +24,16 @@ export default class World extends Component {
   componentWillUnmount() {
     clearInterval(this.interval);
   }
+  componentWillUpdate(nextProps, nextState) {
+    if (
+      nextState.bottom ===
+      this.state.bottom
+    ) {
 
+    } else {
+     
+    }
+  }
   render() {
     const styles = {
       bigBox: {
@@ -37,7 +47,7 @@ export default class World extends Component {
     };
     return (
       <div style={styles.bigBox}>
-        <div style={styles.block} />
+      <Block0  height={50}    width={50}    bottom={0} />
         <Player bottom={this.state.bottom}   />
           {" "}
         </div>
