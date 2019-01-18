@@ -1,8 +1,5 @@
 import React, { Component } from "react";
 
-const worldHeight = 20000;
-const topDelta = 400;
-const screeHeight = window.screen.height;
 const speed = 1;
 const playerSize = { height: 40, width: 40 };
 
@@ -12,18 +9,14 @@ export default class World extends Component {
 
     this.state = {
       isGameStarted: false,
-      top: worldHeight,
-      blockTop: 19500,
-      deltaTop: 50
+      bottom: 50,
+      worldHeight: 400,
     };
-    this.w = true;
   }
 
   componentDidMount() {
-    // this.ballMagnetic.scrollIntoView();
     this.interval = setInterval(() => {
-      this.setState({ top: this.state.top - speed });
-      this.ballMagnetic.scrollIntoView();
+      this.setState({ bottom: this.state.bottom - speed, worldHeight: this.state.worldHeight + speed });
     }, 1);
   }
 
@@ -33,61 +26,49 @@ export default class World extends Component {
 
   componentWillUpdate(nextProps, nextState) {
     if (
-      nextState.top - nextState.deltaTop - playerSize.height ===
-      this.state.blockTop
+      nextState.bottom ===
+      this.state.bottom
     ) {
-      alert("ok");
+
+
+    } else {
+      console.log('ya du mouvement')
+      this.ball.scrollIntoView();
     }
   }
 
   render() {
     const styles = {
       bigBox: {
-        height: worldHeight,
-        width: "50vw",
-        backgroundColor: "red"
+        height: this.state.worldHeight,
+        width: "100vw",
+        backgroundColor: "red",
+        position: 'absolute',
       },
 
-      ballMagnetic: {
-        position: "absolute",
-        height: screeHeight / 2,
-        top: this.state.top - screeHeight / 2
-      },
+
       ball: {
         left: 400,
         height: playerSize.height,
         width: playerSize.width,
         borderRadius: "50%",
         backgroundColor: "yellow",
-        position: "absolute",
-        bottom: 0
+        position: "relative",
+        bottom: this.state.bottom
       },
-      block: {
-        position: "absolute",
-        height: this.state.deltaTop,
-        width: 50,
-        backgroundColor: "green",
-        left: 400,
-        top: this.state.blockTop
-      }
+
     };
     return (
       <div style={styles.bigBox}>
         <div style={styles.block} />
+
         <div
-          style={styles.ballMagnetic}
+          style={styles.ball}
           ref={el => {
-            this.ballMagnetic = el;
+            this.ball = el;
           }}
         >
-          <div
-            style={styles.ball}
-            ref={el => {
-              this.ball = el;
-            }}
-          >
-            {" "}
-          </div>
+          {" "}
         </div>
       </div>
     );
