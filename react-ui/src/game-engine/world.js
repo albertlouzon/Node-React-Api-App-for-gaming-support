@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { log } from "util";
 
 const worldHeight = 20000;
 const topDelta = 400;
@@ -40,6 +41,10 @@ export default class World extends Component {
     }
   }
 
+  handleMove = e => {
+    console.log(e);
+  };
+
   render() {
     const styles = {
       bigBox: {
@@ -72,7 +77,11 @@ export default class World extends Component {
       }
     };
     return (
-      <div style={styles.bigBox}>
+      <div
+        style={styles.bigBox}
+        onKeyPress={e => this.handleMove(e)}
+        tabIndex="0"
+      >
         <div style={styles.block} />
         <div
           style={styles.ballMagnetic}
