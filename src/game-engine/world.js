@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Player from './player'
 import Block0 from './block0'
-import { generateFirstLevel, generateNextLevel } from "./randomization/blocks-generator";
+import { generateNextLevel } from "./randomization/blocks-generator";
 import ProgressBar from './ui-kits/progressBar'
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -13,6 +13,9 @@ import Button from '@material-ui/core/Button';
 import Song from './../sonGilet.mp3'
 import RoadImage from './../road.png'
 import ReactAudioPlayer from 'react-audio-player'
+import Snackbar from '@material-ui/core/Snackbar';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 
 function Transition(props) {
   return <Slide direction="up" {...props} />;
@@ -29,6 +32,7 @@ export default class World extends Component {
 
     this.state = {
       isGameOver: false,
+      openTuto:false,
       yPosition: 50,
       worldHeight: initialWorldHeight,
       xPosition: 300,
@@ -54,18 +58,31 @@ export default class World extends Component {
     }
     // console.log('new RuleOBj: ',   this.blockRulesObj)
   }
+  // handleClickTuto = () => {
+  //   this.setState({ open: true });
+  // };
+
+ 
+  handleCloseTuto = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    this.setState({ openTuto: false });
+  };
+
 
   handleClickOpen = () => {
     this.setState({ isGameOver: true });
   };
-
-  handleClose = () => {
-    this.setState({ isGameOver: false });
-    this.interval = setInterval(() => {
-      this.setState({ yPosition: this.state.yPosition - speed, worldHeight: this.state.worldHeight + speed, points: this.state.points + 1 });
-    }, 1);
-  };
+handleClose = ()=>{
+  this.setState({isGameOver:false})
+  this.interval = setInterval(() => {
+    this.setState({ yPosition: this.state.yPosition - speed, worldHeight: this.state.worldHeight + speed, points: this.state.points + 1 });
+  }, 1);
+}
   componentDidMount() {
+    this.setState({ openTuto: true });
 
     this.setColisionRules()
     this.interval = setInterval(() => {
@@ -82,7 +99,7 @@ export default class World extends Component {
       nextState.score = this.state.points
       nextState.isGameOver = true
       this.stopGame()
-      this.state.hp = 200
+      this.state.hp = initialHP
       nextState.points = 0
     }
 
@@ -179,9 +196,9 @@ export default class World extends Component {
         })}
 
 
-        <button onClick={() => { this.stopGame() }} style={{ position: 'fixed', top: 0, left: 0 }}>STOP</button>
-        <h3 style={{ position: 'fixed', top: 15, left: 0 }}>Points {this.state.points}</h3>
-        <div style={{ position: 'fixed', top: 55, left: 0 }}>
+        {/* <button onClick={() => { this.stopGame() }} style={{ position: 'fixed', top: 0, left: 0 }}>STOP</button> */}
+        <h3 style={{ position: 'fixed', top: 10, left: 0 }}>Points {this.state.points}</h3>
+        <div style={{ position: 'fixed', top: 50, left: 0 }}>
           <h3>HP BAR</h3>
           <ProgressBar hp={this.state.hp} hpMax={initialHP} />
         </div>
@@ -207,11 +224,11 @@ export default class World extends Component {
           aria-describedby="alert-dialog-slide-description"
         >
           <DialogTitle id="alert-dialog-slide-title">
-            SCORE : {this.state.score} POINTS ! Pas de quoi faire le plein....
+           <span style={{fontSize:28,color:'green'}}>{this.state.score} POINTS ! </span> Pas de quoi faire le plein....
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-slide-description">
-              Les condés t'ont trop caillassé. Va payer ton essence mon prolo !!
+             <span style={{fontSize:16}}>Les condés t'ont trop caillassé. Va payer ton essence mon prolo !!</span> 
             </DialogContentText>
           </DialogContent>
           <DialogActions>
@@ -222,6 +239,36 @@ export default class World extends Component {
           </DialogActions>
         </Dialog>
 
+
+
+        <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'center',
+          }}
+          open={this.state.openTuto}
+          autoHideDuration={6000}
+          onClose={this.handleCloseTuto}
+          ContentProps={{
+            'aria-describedby': 'message-id',
+          }}
+          message={<span id="message-id"           style={{color:'yellow'}}
+          >
+          Move left and right key arrows to move your yellow vest !<br/>
+          Click on the screen if it doesnt work
+          </span>}
+          action={[
+           
+            <IconButton
+              key="close"
+              aria-label="Close"
+              color="inherit"
+              onClick={this.handleCloseTuto}
+            >
+              <CloseIcon />
+            </IconButton>,
+          ]}
+        />
       </div>
     );
   }
