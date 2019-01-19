@@ -293,7 +293,7 @@ handleClose = ()=>{
           >
           - Click on the Screen<br/>
          - Move with ARROW KEYS Left/Right<br/>
-         - Catch Oil to earn more Points !!!
+         - Avoid CRS to win !!!
           </span>}
           action={[
            
