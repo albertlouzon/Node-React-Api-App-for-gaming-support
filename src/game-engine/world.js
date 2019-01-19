@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Player from './player'
 import Block0 from './block0'
 import { generateNextLevel } from "./randomization/blocks-generator";
+import Oil from './oil'
 import ProgressBar from './ui-kits/progressBar'
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -208,15 +209,16 @@ handleClose = ()=>{
         {Object.keys(this.blockObj).map((obj, i) => {
 
           return (
+            <div>
             <Block0 key={i} height={this.blockObj[obj].height} width={this.blockObj[obj].width} 
             yPosition={this.blockObj[obj].yPosition + this.state.yPosition} xPosition={this.blockObj[obj].xPosition}  isIphone={this.state.isIphone}>
               <h3>{this.blockObj[obj].key}</h3>
             </Block0>
-
-
+            </div>
           )
         })}
 
+        
 
         <h3 style={{ position: 'fixed', top: 10, left: 0 }}>Points {this.state.points}</h3>
         <div style={{ position: 'fixed', top: 50, left: 0 }}>
@@ -224,14 +226,13 @@ handleClose = ()=>{
           <ProgressBar hp={this.state.hp} hpMax={initialHP} />
         </div>
           {
-          <div style={{ position: 'fixed', bottom: 15, left: 0 }}>
+          <div style={{ position: 'fixed', bottom: 15, left: 0 ,width:this.state.audioPlayerWidth}}>
 
             <ReactAudioPlayer
               src={this.url}
               autoPlay
               loop
               controls  
-              style={{width:this.state.audioPlayerWidth}}
             />
           </div>}
           <div   style={{ position: 'fixed', right: 15, bottom: 25,width:'20vh',height:'5vh',backgroundColor:'rgba(0,0,0,0.4)' }}>
@@ -260,8 +261,8 @@ handleClose = ()=>{
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-slide-description">
-             <span style={{fontSize:16}}>Les condés t'ont trop caillassé. Va payer ton essence mon prolo !!</span> 
-             Si tu ne peux pas rejouer, recharge le site
+             <span style={{fontSize:16}}>Les condés t'ont trop caillassé. Va payer ton essence mon prolo !!  </span> 
+             Rien que tu pleures pour 10 centimes miskine
             </DialogContentText>
           </DialogContent>
           <DialogActions>
@@ -287,8 +288,9 @@ handleClose = ()=>{
           }}
           message={<span id="message-id"           style={{color:'yellow'}}
           >
-          Move left and right key arrows to move your yellow vest !<br/>
-          Click on the screen if it doesnt work
+          - Click on the Screen<br/>
+         - Move with ARROW KEYS Left/Right<br/>
+         - Catch Oil to earn more Points !!!
           </span>}
           action={[
            

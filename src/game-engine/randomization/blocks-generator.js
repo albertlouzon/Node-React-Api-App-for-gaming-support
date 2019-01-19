@@ -5,11 +5,11 @@ export  function generateNextLevel(num,newMinHeight,newMaxHeight) {
     for (var i = 0; i < num; i++) {
             if(screenWidth<500){
                 let randomHeight =randomIntFromInterval(40,90) ;
-                let randomWidth =randomIntFromInterval(screenWidth/10,screenWidth/3)
+                let randomWidth =randomIntFromInterval(screenWidth/5,screenWidth/3)
                 let randomYPos = randomIntFromInterval(newMinHeight,newMaxHeight)
                 let randomXPos = randomIntFromInterval(0,screenWidth/1.5)
-        
-                blockObj[i] = {key:i,  height: 75, width: randomWidth, yPosition: randomYPos, xPosition: randomXPos }
+                blockObj[i] = {key:i,  height: 75, width: randomWidth, yPosition: randomYPos, xPosition: randomXPos, 
+                    }
         
             
             }else{
@@ -17,8 +17,9 @@ export  function generateNextLevel(num,newMinHeight,newMaxHeight) {
                 let randomWidth =randomIntFromInterval(340,640)
                 let randomYPos = randomIntFromInterval(newMinHeight,newMaxHeight)
                 let randomXPos = randomIntFromInterval(20,screenWidth/2)
+                blockObj[i] = {key:i,  height: 75, width: randomWidth, yPosition: randomYPos, xPosition: randomXPos, 
+                 }
         
-                blockObj[i] = {key:i,  height: 120, width: randomWidth, yPosition: randomYPos, xPosition: randomXPos }
         
             
     
