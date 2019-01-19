@@ -38,8 +38,8 @@ export default class World extends Component {
       xPosition: 300,
       hp: initialHP,
       points: 0,
-      score: 0
-
+      score: 0,
+      audioPlayer:true
 
     };
     this.blockObj = {}
@@ -82,7 +82,7 @@ handleClose = ()=>{
   }, 1);
 }
   componentDidMount() {
-    this.setState({ openTuto: true });
+    this.setState({ openTuto: true,audioPlayer:true });
 
     this.setColisionRules()
     this.interval = setInterval(() => {
@@ -208,7 +208,8 @@ handleClose = ()=>{
             <ReactAudioPlayer
               src={this.url}
               autoPlay
-              controls
+              loop
+              controls  
             />
           </div>}
 
