@@ -94,7 +94,7 @@ handleClose = ()=>{
       this.setState({
         isIphone : true,
         audioPlayerWidth:'20vw',
-        yPosition:-100
+        yPosition:-200
       })
       playerSize.height = 80
       playerSize.width = 60
