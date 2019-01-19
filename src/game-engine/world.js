@@ -25,7 +25,7 @@ function Transition(props) {
   return <Slide direction="up" {...props} />;
 }
 
-const speed = 2;
+const speed = 2 ;
 const initialWorldHeight = 500
 const playerSize = { height: 110, width: 60 };
 const heightFactor = 4000
@@ -93,7 +93,8 @@ handleClose = ()=>{
     if(screenWidth<=500){
       this.setState({
         isIphone : true,
-        audioPlayerWidth:125,
+        audioPlayerWidth:'20vw',
+        yPosition:-100
       })
       playerSize.height = 80
       playerSize.width = 60
@@ -226,9 +227,10 @@ handleClose = ()=>{
           <ProgressBar hp={this.state.hp} hpMax={initialHP} />
         </div>
           {
-          <div style={{ position: 'fixed', bottom: 15, left: 0 ,width:this.state.audioPlayerWidth}}>
+          <div style={{ position: 'fixed', bottom: 15, left: 0 }}>
 
             <ReactAudioPlayer
+            style={{width:this.state.audioPlayerWidth}}
               src={this.url}
               autoPlay
               loop

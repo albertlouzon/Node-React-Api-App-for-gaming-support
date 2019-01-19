@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+const screenWidth = window.screen.width
 export default class Player extends Component {
   constructor(props) {
     super(props);
@@ -9,6 +9,7 @@ export default class Player extends Component {
     this.hp = this.props.hp
     this.state = {};
   }
+
 
   componentWillUpdate(nextProps, nextState) {
     if (nextProps.yPosition === this.props.yPosition) {
