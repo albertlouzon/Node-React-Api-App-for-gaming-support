@@ -39,7 +39,7 @@ export default class World extends Component {
       isGameOver: false,
       openTuto:false,
       isIphone:false,
-      yPosition: 50,
+      yPosition: -150,
       worldHeight: initialWorldHeight,
       xPosition: 300,
       hp: initialHP,
