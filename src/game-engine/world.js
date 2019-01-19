@@ -11,7 +11,6 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
 import Button from '@material-ui/core/Button';
 import {song} from './../sonGilet.mp3'
-import ReactAudioPlayer from 'react-audio-player';
 
 function Transition(props) {
   return <Slide direction="up" {...props} />;
@@ -66,6 +65,7 @@ export default class World extends Component {
   };
   componentDidMount() {
 //    this.audio.play()
+console.log('SALOPE ',song)
     this.setColisionRules()
     this.interval = setInterval(() => {
       this.setState({ yPosition: this.state.yPosition - speed, worldHeight: this.state.worldHeight + speed ,points:this.state.points+1});
@@ -183,15 +183,6 @@ export default class World extends Component {
         <ProgressBar  hp={this.state.hp}  hpMax={initialHP}/>
         </div>
 
-
-        {/* <div style={{position:'fixed',bottom:  25,left:0}}>
-        
-        <ReactAudioPlayer
-  src={song}
-  autoPlay
-  controls
-/>
-        </div> */}
 
         <Dialog
           open={this.state.isGameOver}
