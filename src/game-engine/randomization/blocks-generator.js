@@ -7,7 +7,7 @@ export  function generateNextLevel(num,newMinHeight,newMaxHeight) {
     for (var i = 0; i < num; i++) {
      
             let randomHeight =randomIntFromInterval(60,150) ;
-            let randomWidth =randomIntFromInterval(200,500)
+            let randomWidth =randomIntFromInterval(350,650)
             let randomYPos = randomIntFromInterval(newMinHeight,newMaxHeight)
             let randomXPos = randomIntFromInterval(20,screenWidth/2)
     

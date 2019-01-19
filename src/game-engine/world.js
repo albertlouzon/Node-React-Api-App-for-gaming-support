@@ -130,12 +130,12 @@ export default class World extends Component {
     switch (e.key) {
       case "ArrowRight":
         this.setState({
-          xPosition: this.state.xPosition + 10
+          xPosition: this.state.xPosition + 22
         });
         break;
       case "ArrowLeft":
         this.setState({
-          xPosition: this.state.xPosition - 10
+          xPosition: this.state.xPosition - 22
         });
         break;
       default:
