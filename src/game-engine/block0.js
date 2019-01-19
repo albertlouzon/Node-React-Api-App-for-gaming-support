@@ -1,19 +1,28 @@
 import React, { Component } from 'react'
 import blockImage from './../giletjaune2.png'
+import blockImageForIphone from './../giletjaune3.png'
 
+const screenWidth = window.screen.width
 export default class Block0 extends Component {
     constructor(props) {
       super(props)
       this.height = this.props.height
       this.yPosition = this.props.yPosition
       this.xPosition = this.props.xPosition
-        this.width=this.props.width
+      this.width=this.props.width
+      this.isIphone=this.props.isIphone
 
       this.state = {
-         
+         url:`url(${ blockImage })`
       }
     }
-    
+  componentDidMount(){
+    if(screenWidth<=500){
+      this.setState({
+        url:`url(${ blockImageForIphone })`
+      })
+    }
+  }
   render() {
     const styles = {
         ball: {
@@ -22,7 +31,7 @@ export default class Block0 extends Component {
             bottom:this.props.yPosition,
             backgroundColor:'yellow',
             position:"fixed",
-            backgroundImage: `url(${ blockImage })`,
+            backgroundImage: this.state.url,
             backgroundRepeat  : 'repeat',
             backgroundPosition: 'left',
             BackgroundSize:'contain',

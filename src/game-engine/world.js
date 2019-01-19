@@ -16,6 +16,9 @@ import ReactAudioPlayer from 'react-audio-player'
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
+import Tooltip from '@material-ui/core/Tooltip';
+import Fade from '@material-ui/core/Fade';
+import Zoom from '@material-ui/core/Zoom';
 
 function Transition(props) {
   return <Slide direction="up" {...props} />;
@@ -26,6 +29,7 @@ const initialWorldHeight = 500
 const playerSize = { height: 110, width: 60 };
 const heightFactor = 4000
 const initialHP = 400
+const screenWidth = window.screen.width
 export default class World extends Component {
   constructor(props) {
     super(props);
@@ -33,13 +37,15 @@ export default class World extends Component {
     this.state = {
       isGameOver: false,
       openTuto:false,
+      isIphone:false,
       yPosition: 50,
       worldHeight: initialWorldHeight,
       xPosition: 300,
       hp: initialHP,
       points: 0,
       score: 0,
-      audioPlayer:true
+      audioPlayer:true,
+      audioPlayerWidth: 275
 
     };
     this.blockObj = {}
@@ -83,7 +89,15 @@ handleClose = ()=>{
 }
   componentDidMount() {
     this.setState({ openTuto: true,audioPlayer:true });
-
+    if(screenWidth<=500){
+      this.setState({
+        isIphone : true,
+        audioPlayerWidth:125,
+      })
+      playerSize.height = 80
+      playerSize.width = 60
+      
+    }
     this.setColisionRules()
     this.interval = setInterval(() => {
       this.setState({ yPosition: this.state.yPosition - speed, worldHeight: this.state.worldHeight + speed, points: this.state.points + 1 });
@@ -94,7 +108,12 @@ handleClose = ()=>{
     clearInterval(this.interval);
   }
   componentWillUpdate(nextProps, nextState) {
+    if(this.state.isIphone === nextState.isIphone){
 
+    }
+    else{
+      this.adaptGraphicSize()
+    }
     if (nextState.hp <= 0) {
       nextState.score = this.state.points
       nextState.isGameOver = true
@@ -165,7 +184,9 @@ handleClose = ()=>{
 
 
   }
+  adaptGraphicSize(){
 
+  }
   render() {
     const styles = {
       bigBox: {
@@ -187,7 +208,8 @@ handleClose = ()=>{
         {Object.keys(this.blockObj).map((obj, i) => {
 
           return (
-            <Block0 key={i} height={this.blockObj[obj].height} width={this.blockObj[obj].width} yPosition={this.blockObj[obj].yPosition + this.state.yPosition} xPosition={this.blockObj[obj].xPosition}>
+            <Block0 key={i} height={this.blockObj[obj].height} width={this.blockObj[obj].width} 
+            yPosition={this.blockObj[obj].yPosition + this.state.yPosition} xPosition={this.blockObj[obj].xPosition}  isIphone={this.state.isIphone}>
               <h3>{this.blockObj[obj].key}</h3>
             </Block0>
 
@@ -196,24 +218,33 @@ handleClose = ()=>{
         })}
 
 
-        {/* <button onClick={() => { this.stopGame() }} style={{ position: 'fixed', top: 0, left: 0 }}>STOP</button> */}
         <h3 style={{ position: 'fixed', top: 10, left: 0 }}>Points {this.state.points}</h3>
         <div style={{ position: 'fixed', top: 50, left: 0 }}>
           <h3>HP BAR</h3>
           <ProgressBar hp={this.state.hp} hpMax={initialHP} />
         </div>
-        <div style={{ position: 'fixed', bottom: 25, left: 0 }}>
-          {<div style={{ position: 'fixed', bottom: 25, left: 0 }}>
+          {
+          <div style={{ position: 'fixed', bottom: 15, left: 0 }}>
 
             <ReactAudioPlayer
               src={this.url}
               autoPlay
               loop
               controls  
+              style={{width:this.state.audioPlayerWidth}}
             />
           </div>}
+          <div   style={{ position: 'fixed', right: 15, bottom: 25,width:'20vh',height:'5vh',backgroundColor:'rgba(0,0,0,0.4)' }}>
+          <div style={{display:'flex',justifyContent:'space-between'}}>
+          <Tooltip TransitionComponent={Fade} TransitionProps={{ timeout: 600 }} title="Add">
+        <Button color='secondary' onClick={()=>{this.handleXposition({key:'ArrowLeft'})}}>Left</Button>
+      </Tooltip>
+      <Tooltip TransitionComponent={Fade} TransitionProps={{ timeout: 600 }} title="Add">
+        <Button color='primary'  onClick={()=>{this.handleXposition({key:'ArrowRight'})}}>Right</Button>
 
-        </div>
+      </Tooltip>
+          </div>
+          </div>
 
 
         <Dialog
@@ -230,6 +261,7 @@ handleClose = ()=>{
           <DialogContent>
             <DialogContentText id="alert-dialog-slide-description">
              <span style={{fontSize:16}}>Les condés t'ont trop caillassé. Va payer ton essence mon prolo !!</span> 
+             Si tu ne peux pas rejouer, recharge le site
             </DialogContentText>
           </DialogContent>
           <DialogActions>
