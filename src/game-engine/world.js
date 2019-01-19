@@ -118,6 +118,7 @@ handleClose = ()=>{
     }
     if (nextState.hp <= 0) {
       nextState.score = this.state.points
+      
       nextState.isGameOver = true
       this.stopGame()
       this.state.hp = initialHP
